@@ -6,9 +6,10 @@ JAVA_LOC_ORIG: '/usr/jdk/instances/jre1.7.0_151'
 env_full_fillment: 'DEV-Development'
 PROCESS_NAME: sendmail
 APP_PROGRAM_FILE: '/usr/lib/sendmail'
-svn_trunk_url: 'http://10.10.28.44'
-AUTOSYS_START: /local/apps/ifs/scripts/autosys_start.sh
-AUTOSYS_STOP: /local/apps/ifs/scripts/autosys_stop.sh
+svn_trunk_url: 'http://10.10.28.37'
+script_loc: '{{ TEMP_DIR }}/scripts'
+AUTOSYS_START: '{{ script_loc }}/start.sh'
+AUTOSYS_STOP: '{{ script_loc }}/stop.sh'
 this_build: "BUILD_{{ BUILD }}"
 MJR_VER: "{{ mjr_ver }}"
 MIN_VER: "{{ min_ver }}"
