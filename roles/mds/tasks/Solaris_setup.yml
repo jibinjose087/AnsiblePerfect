@@ -312,10 +312,10 @@
 
     - debug: msg="The deployment completed for {{ APP }} application and email sent successfully"
 
-    - name: Delete temp directory {{ TEMP_DIR }}
-      file:
-        dest: "{{ TEMP_DIR }}"
-        state: absent
+#    - name: Delete temp directory {{ TEMP_DIR }}
+#      file:
+#        dest: "{{ TEMP_DIR }}"
+#        state: absent
 
   rescue:
     - debug: msg="The deployment seems to be incompleted in one of the steps please check the log files for more info"
@@ -342,7 +342,7 @@
     #    charset: utf8
     #  delegate_to: localhost
 
-    - name: Delete temp directory {{ TEMP_DIR }}
-      file:
-        dest: "{{ TEMP_DIR }}"
-        state: absent
+#    - name: Delete temp directory {{ TEMP_DIR }}
+#      file:
+#        dest: "{{ TEMP_DIR }}"
+#        state: absent
