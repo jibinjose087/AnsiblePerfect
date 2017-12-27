@@ -63,7 +63,7 @@
  #       validate_certs: no
 
     - name: select the build number from zip file downloaded
-      shell: ls '{{ SVN_EXPORT_DIR }}/{{ BUILD_FILE }}' | awk -F"." '{$NF=""; print $0}' | awk -F"D_" '{ print $2 }'
+      shell: ls '{{ SVN_EXPORT_DIR }}/{{ BUILD_FILE }}' | awk -F"_" '{print $3"_"$4}' | awk -F"." '{print $1}'
       register: build_num
 
     - name: getting build number from zip file name
