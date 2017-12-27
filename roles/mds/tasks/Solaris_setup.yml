@@ -55,12 +55,12 @@
         group: "{{ APP_GROUP }}"
         state: directory
 
- #   - name: Downloading the deployment files from artifactory or git repository
- #     get_url:
- #       url: '{{ SVN_SOURCE }}'
- #       dest: '{{ SVN_EXPORT_DIR }}'
- #       mode: 0777
- #       validate_certs: no
+#    - name: Downloading the deployment files from artifactory or git repository
+#      get_url:
+#        url: '{{ SVN_SOURCE }}'
+#        dest: '{{ SVN_EXPORT_DIR }}'
+#        mode: 0777
+#        validate_certs: no
 
     - name: select the build number from zip file downloaded
       shell: ls '{{ SVN_EXPORT_DIR }}/{{ BUILD_FILE }}' | awk -F"_" '{print $3"_"$4}' | awk -F"." '{print $1}'
@@ -119,7 +119,7 @@
     - name: copy start-stop scripts to host test_server
       copy:
         src: "{{ item }}"
-        dest: /local/apps/ifs/scripts
+        dest: "{{ script_loc }}"
       with_items:
         - /local/apps/scripts/pstart.sh
         - /local/apps/scripts/pstop.sh
