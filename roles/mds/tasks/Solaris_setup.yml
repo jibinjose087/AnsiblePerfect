@@ -42,11 +42,11 @@
         msg: File not found!! Please check the deployment folder '{{ APP_HOME }}'
       when: "deployment_folder_stat.stat.exists == False"
 
-    - name: Checking the war file status on artifactory
-      uri:
-        url: "{{ SVN_SOURCE }}"
-        status_code: 200,201,202
-        validate_certs: no
+#    - name: Checking the war file status on artifactory
+#      uri:
+#        url: "{{ SVN_SOURCE }}"
+#        status_code: 200,201,202
+#        validate_certs: no
 
     - name: Create a svn export directory {{ SVN_EXPORT_DIR }}
       file:
@@ -55,12 +55,12 @@
         group: "{{ APP_GROUP }}"
         state: directory
 
-    - name: Downloading the deployment files from artifactory or git repository
-      get_url:
-        url: '{{ SVN_SOURCE }}'
-        dest: '{{ SVN_EXPORT_DIR }}'
-        mode: 0777
-        validate_certs: no
+ #   - name: Downloading the deployment files from artifactory or git repository
+ #     get_url:
+ #       url: '{{ SVN_SOURCE }}'
+ #       dest: '{{ SVN_EXPORT_DIR }}'
+ #       mode: 0777
+ #       validate_certs: no
 
     - name: select the build number from zip file downloaded
       shell: ls '{{ SVN_EXPORT_DIR }}/{{ BUILD_FILE }}' | awk -F"." '{$NF=""; print $0}' | awk -F"D_" '{ print $2 }'
