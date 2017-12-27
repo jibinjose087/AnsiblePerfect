@@ -1,0 +1,7 @@
+---
+# deploy.yml includes deployment stuffs
+
+# Roles defined for MDS application
+- hosts: dev_mds
+  roles:
+    - { role: mds, when: app_name == "mdsserver" }
