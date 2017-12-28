@@ -59,8 +59,8 @@
       get_url:
         url: '{{ SVN_SOURCE }}'
         dest: '{{ SVN_EXPORT_DIR }}'
-        url_username: jibin
-        url_password: redhat
+        url_username: "jibin"
+        url_password: "redhat"
         mode: 0777
         validate_certs: no
 
