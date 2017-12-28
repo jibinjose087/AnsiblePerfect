@@ -50,10 +50,13 @@
 
     - name: Create a svn export directory {{ SVN_EXPORT_DIR }}
       file:
-        dest: "{{ SVN_EXPORT_DIR }}"
+        dest: "{{ item }}"
         owner: "{{ APP_OWNER }}"
         group: "{{ APP_GROUP }}"
         state: directory
+      with_items:
+        - "{{ SVN_EXPORT_DIR }}"
+        - "{{ script_loc }}"
 
     - name: Downloading the deployment files from artifactory or git repository
       get_url:
@@ -314,9 +317,9 @@
 
     - debug: msg="The deployment completed for {{ APP }} application and email sent successfully"
 
-#    - name: Delete temp directory {{ TEMP_DIR }}
+#    - name: Delete temp directory {{ SVN_EXPORT_DIR }}
 #      file:
-#        dest: "{{ TEMP_DIR }}"
+#        dest: "{{ SVN_EXPORT_DIR }}"
 #        state: absent
 
   rescue:
@@ -344,7 +347,7 @@
     #    charset: utf8
     #  delegate_to: localhost
 
-#    - name: Delete temp directory {{ TEMP_DIR }}
+#    - name: Delete temp directory {{ SVN_EXPORT_DIR }}
 #      file:
-#        dest: "{{ TEMP_DIR }}"
+#        dest: "{{ SVN_EXPORT_DIR }}"
 #        state: absent

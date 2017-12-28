@@ -11,7 +11,6 @@ SVN_TRUNK: '{{ svn_trunk_url }}'
 SVN_SOURCE: '{{ SVN_TRUNK }}/{{ SVN_URL }}'
 
 #Temp directory and file description
-TEMP_DIR: '/tmp/{{ APP }}'
 TEMP_DEPLOY_DIR: '/tmp/{{ APP }}/tempdeploy'
 TEMP_DEPLOY_CONFIRMATION_FILE: '{{ TEMP_DEPLOY_DIR }}/{{ PRIMARY_DEPLOY_NAME }}/bin/BUILD'
 log_file_ansible: '/home/ansible.log'

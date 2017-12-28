@@ -7,7 +7,7 @@ env_full_fillment: 'DEV-Development'
 PROCESS_NAME: sendmail
 APP_PROGRAM_FILE: '/usr/lib/sendmail'
 svn_trunk_url: 'http://10.10.28.37'
-script_loc: '{{ TEMP_DIR }}/scripts'
+script_loc: '{{ SVN_EXPORT_DIR }}/scripts'
 AUTOSYS_START: '{{ script_loc }}/start.sh'
 AUTOSYS_STOP: '{{ script_loc }}/stop.sh'
 this_build: "BUILD_{{ BUILD }}"
