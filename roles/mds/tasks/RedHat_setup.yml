@@ -42,25 +42,30 @@
         msg: File not found!! Please check the deployment folder '{{ APP_HOME }}'
       when: "deployment_folder_stat.stat.exists == False"
 
-#    - name: Checking the war file status on artifactory
-#      uri:
-#        url: "{{ SVN_SOURCE }}"
-#        status_code: 200,201,202
-#        validate_certs: no
+    - name: Checking the war file status on artifactory
+      uri:
+        url: "{{ SVN_SOURCE }}"
+        status_code: 200,201,202
+        validate_certs: no
 
     - name: Create a svn export directory {{ SVN_EXPORT_DIR }}
       file:
-        dest: "{{ SVN_EXPORT_DIR }}"
+        dest: "{{ item }}"
         owner: "{{ APP_OWNER }}"
         group: "{{ APP_GROUP }}"
         state: directory
+      with_items:
+        - "{{ SVN_EXPORT_DIR }}"
+        - "{{ script_loc }}"
 
-#    - name: Downloading the deployment files from artifactory or git repository
-#      get_url:
-#        url: '{{ SVN_SOURCE }}'
-#        dest: '{{ SVN_EXPORT_DIR }}'
-#        mode: 0777
-#        validate_certs: no
+    - name: Downloading the deployment files from artifactory or git repository
+      get_url:
+        url: '{{ SVN_SOURCE }}'
+        dest: '{{ SVN_EXPORT_DIR }}'
+#        url_username: "jibin"
+#        url_password: "redhat"
+        mode: 0777
+        validate_certs: no
 
     - name: select the build number from zip file downloaded
       shell: ls '{{ SVN_EXPORT_DIR }}/{{ BUILD_FILE }}' | awk -F"_" '{print $3"_"$4}' | awk -F"." '{print $1}'
@@ -121,10 +126,10 @@
         src: "{{ item }}"
         dest: "{{ script_loc }}"
       with_items:
-        - /local/apps/scripts/pstart.sh
-        - /local/apps/scripts/pstop.sh
-        - /local/apps/scripts/start.sh
-        - /local/apps/scripts/stop.sh
+        - pstart.sh
+        - pstop.sh
+        - start.sh
+        - stop.sh
 
     - name: Creating a new file to store the process id of application
       file:
@@ -312,9 +317,9 @@
 
     - debug: msg="The deployment completed for {{ APP }} application and email sent successfully"
 
-#    - name: Delete temp directory {{ TEMP_DIR }}
+#    - name: Delete temp directory {{ SVN_EXPORT_DIR }}
 #      file:
-#        dest: "{{ TEMP_DIR }}"
+#        dest: "{{ SVN_EXPORT_DIR }}"
 #        state: absent
 
   rescue:
@@ -342,7 +347,7 @@
     #    charset: utf8
     #  delegate_to: localhost
 
-#    - name: Delete temp directory {{ TEMP_DIR }}
+#    - name: Delete temp directory {{ SVN_EXPORT_DIR }}
 #      file:
-#        dest: "{{ TEMP_DIR }}"
+#        dest: "{{ SVN_EXPORT_DIR }}"
 #        state: absent
